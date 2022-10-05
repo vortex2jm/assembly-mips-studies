@@ -3,26 +3,21 @@
 msg1: .asciiz "Digite um valor inteiro: "
 
 .text
-# print message on shell
-li $s0, 0x00400000 # save return adress in $s0
+li $s0, 0x00400000 
 
-li $v0, 4 # system call for print_str
-la $a0, msg1 # address of string to print
+li $v0, 4 
+la $a0, msg1 
 syscall
 
-# now get an integer from the user using a system call (syscall)
-li $v0, 5 # system call for read_int
-syscall # the integer is placed in $v0
+li $v0, 5 
+syscall 
 
-# do some computation here with the number
-addu $t0, $v0, $0 # move the number to $t0
-sll $t0, $t0, 9 # change <digit> with the last digit of your UFES id (matricula)
+addu $t0, $v0, $0 
+sll $t0, $t0, 9 
 
-# print the result in shell
-li $v0, 1 # system call for print_int
-addu $a0, $t0, $0 # move number to be printed in $a0
+li $v0, 1 
+addu $a0, $t0, $0 
 syscall
 
-# restore now the return address in $ra and return from main
-addu $ra, $0, $s0 # return address back in $ra
-jr $ra # return to the main label
+addu $ra, $0, $s0 
+jr $ra 
